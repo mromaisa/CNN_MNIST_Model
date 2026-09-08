@@ -1,6 +1,8 @@
 # MNIST Digit Classification using a Convolutional Neural Network (CNN)
 
 This repository contains a Jupyter Notebook (`cnn_mnist_dataset.ipynb`) that demonstrates the process of building, training, and evaluating a Convolutional Neural Network (CNN) for classifying handwritten digits from the MNIST dataset.
+The links to the dataset: 
+https://www.kaggle.com/datasets/oddrationale/mnist-in-csv
 
 ## Project Overview
 
