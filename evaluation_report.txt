@@ -1,0 +1,64 @@
+## Performance Evaluation Report: CNN for MNIST Digit Classification
+
+### 1. Background and Objective
+
+This report evaluates a Convolutional Neural Network (CNN) designed for the MNIST digit classification task. The objective was to train a model capable of accurately classifying handwritten digits (0-9) from grayscale images.
+
+### 2. Model Architecture
+
+The CNN (`model_mnist`) consists of a sequential stack of layers:
+*   Two `Conv2D` layers (32 and 64 filters respectively, 3x3 kernel, ReLU activation) for feature extraction.
+*   Two `MaxPooling2D` layers (2x2 pool size) for dimensionality reduction.
+*   A `Flatten` layer to convert the 2D feature maps into a 1D vector.
+*   A `Dense` layer with 128 units (ReLU activation).
+*   A `Dropout` layer (0.5) to mitigate overfitting.
+*   A final `Dense` output layer with 10 units (softmax activation) for multi-class classification.
+
+### 3. Training Process
+
+The model was compiled with the `Adam` optimizer and `categorical_crossentropy` loss function. It was trained for 10 epochs with a batch size of 32, using a 20% validation split from the training data. Prior to training, `NaN` values in the image data were replaced with zeros, and labels were one-hot encoded.
+
+### 4. Training and Validation Metrics
+
+During training, the model showed consistent improvement:
+*   **Training Accuracy:** Steadily increased from ~50% to ~95.5%.
+*   **Validation Accuracy:** Showed good convergence, reaching ~95.9% by the final epoch.
+*   **Training Loss:** Decreased significantly from ~1.5 to ~0.13.
+*   **Validation Loss:** Decreased rapidly initially and remained stable around ~0.16 by the final epoch. The close values between training and validation metrics suggest the model did not severely overfit during the 10 epochs.
+
+### 5. Test Set Evaluation
+
+After training, the model's performance was evaluated on a completely unseen test dataset:
+
+*   **Test Loss:** 0.1935
+*   **Test Accuracy:** 0.9423 (94.23%)
+
+#### Detailed Classification Metrics (from Classification Report):
+
+| Class | Precision | Recall | F1-Score |
+|-------|-----------|--------|----------|
+| 0     | 0.97      | 0.97   | 0.97     |
+| 1     | 0.98      | 1.00   | 0.99     |
+| 2     | 0.95      | 0.94   | 0.95     |
+| 3     | 0.90      | 0.94   | 0.92     |
+| 4     | 0.97      | 0.94   | 0.95     |
+| 5     | 0.89      | 0.98   | 0.93     |
+| 6     | 0.96      | 0.93   | 0.95     |
+| 7     | 0.91      | 0.93   | 0.92     |
+| 8     | 0.97      | 0.86   | 0.91     |
+| 9     | 0.92      | 0.93   | 0.92     |
+| **Macro Avg** | **0.94** | **0.94** | **0.94** |
+| **Weighted Avg** | **0.94** | **0.94** | **0.94** |
+
+#### Confusion Matrix:
+
+The confusion matrix visually confirms the model's strong performance across most classes. The diagonal elements, representing correct predictions, are generally high. Some minor misclassifications are observed, for instance:
+*   A few '4's were predicted as '6' or '9'.
+*   Some '8's were misclassified as '3', '5', or '9'.
+*   '5's were occasionally confused with '3' or '8'.
+
+These minor confusions are typical in digit recognition and indicate areas where the model could potentially be improved with more data or a more complex architecture.
+
+### 6. Conclusion
+
+The trained CNN model achieved a commendable accuracy of **94.23%** on the unseen test dataset. The training and validation curves, along with the detailed classification report and confusion matrix, indicate that the model generalized well and learned effectively from the data, showing strong performance across all digit classes. While minor misclassifications exist, the overall performance is very good for this task.
